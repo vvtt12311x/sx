@@ -1,0 +1,15 @@
+services:
+- type: pserv
+  name: searxng
+  env: docker
+  dockerfilePath: ./Dockerfile
+  envVars:
+    - key: SEARXNG_BASE_URL
+      value: https://msng.onrender.com/
+  disks:
+    - name: searxng-disk
+      mountPath: /etc/searxng
+  logs:
+    maxSize: 1MB
+    maxFiles: 1
+  autoDeploy: true
