@@ -34,57 +34,36 @@ search:
   # by default.
   autocomplete: ""
   # minimun characters to type before autocompleter starts
-  autocomplete_min: 4
   # Default search language - leave blank to detect from browser information or
   # use codes from 'languages.py'
   default_lang: "auto"
-  # max_page: 0  # if engine supports paging, 0 means unlimited numbers of pages
-  # Available languages
-  # languages:
-  #   - all
-  #   - en
-  #   - en-US
-  #   - de
-  #   - it-IT
-  #   - fr
-  #   - fr-BE
-  # ban time in seconds after engine errors
-  ban_time_on_fail: 5
-  # max ban time in seconds after engine errors
+  ban_time_on_fail: 1
   max_ban_time_on_fail: 120
   suspended_times:
-    # Engine suspension time after error (in seconds; set to 0 to disable)
-    # For error "Access denied" and "HTTP error [402, 403]"
     SearxEngineAccessDenied: 86400
-    # For error "CAPTCHA"
     SearxEngineCaptcha: 86400
-    # For error "Too many request" and "HTTP error 429"
     SearxEngineTooManyRequests: 3600
-    # Cloudflare CAPTCHA
     cf_SearxEngineCaptcha: 1296000
     cf_SearxEngineAccessDenied: 86400
-    # ReCAPTCHA
     recaptcha_SearxEngineCaptcha: 604800
-
-  # remove format to deny access, use lower case.
-  # formats: [html, csv, json, rss]
   formats:
     - html
+    - json
 
 server:
   # Is overwritten by ${SEARXNG_PORT} and ${SEARXNG_BIND_ADDRESS}
-  port: 8888
-  bind_address: "127.0.0.1"
+  port: 8080
+  bind_address: "0.0.0.0"
   # public URL of the instance, to ensure correct inbound links. Is overwritten
   # by ${SEARXNG_URL}.
-  base_url: false  # "http://example.com/location"
+  base_url: http://localhost:/  # "http://example.com/location"
   limiter: false  # rate limit the number of request on the instance, block some bots
   public_instance: false  # enable features designed only for public instances
 
   # If your instance owns a /etc/searxng/settings.yml file, then set the following
   # values there.
 
-  secret_key: "ultrasecretkey"  # Is overwritten by ${SEARXNG_SECRET}
+  secret_key: "f884dadd9e6b23ea6c073a031b18daa0288ff1d82a1c5514089f0ecb32ac7a54"  # Is overwritten by ${SEARXNG_SECRET}
   # Proxying image results through searx
   image_proxy: false
   # 1.0 and 1.1 are supported
@@ -1270,11 +1249,6 @@ engines:
       require_api_key: false
       results: JSON
 
-  - name: openmeteo
-    engine: open_meteo
-    shortcut: om
-    disabled: true
-
   # - name: opensemanticsearch
   #   engine: opensemantic
   #   shortcut: oss
@@ -1374,10 +1348,10 @@ engines:
     disabled: true
     inactive: true
     pixiv_image_proxies:
-      - https://pximg.example.org
+      - pximg.example.org
       # A proxy is required to load the images. Hosting an image proxy server
       # for Pixiv:
-      #    --> https://pixivfe.pages.dev/hosting-image-proxy-server/
+      #    --> https://codeberg.org/VnPower/PixivFE/wiki/Hosting-an-image-proxy-server-for-Pixiv
       # Proxies from public instances.  Ask the public instances owners if they
       # agree to receive traffic from SearXNG!
       #    --> https://codeberg.org/VnPower/PixivFE#instances
