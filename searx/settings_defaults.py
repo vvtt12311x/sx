@@ -245,5 +245,11 @@ SCHEMA = {
 
 
 def settings_set_defaults(settings):
+    # compatibility with searx variables
+    for searx, searxng in SEARX_ENVIRON_VARIABLES.items():
+        if searx in os.environ and searxng not in os.environ:
+            os.environ[searxng] = os.environ[searx]
+            logger.warning('%s uses value from %s', searxng, searx)
+
     apply_schema(settings, SCHEMA, [])
     return settings
